@@ -3,12 +3,16 @@ package main
 import (
 	"./web"
 	"fmt"
+	"log"
+	. "./util"
 )
 
 func main() {
-	url := "https://www.kufar.by/минск_город/Квартиры?cu=BYR&o=1"
-	html, err := web.GetHtml(url)
+	parseConfig := ReadParseConfig()
+	html, err := web.GetHtmlSource(parseConfig.GetNextSiteURL())
 	if err != nil {
+		log.Println("Site parsing was stoped.")
+		log.Println(html)
 		return
 	}
 	fmt.Print(html)

@@ -2,16 +2,18 @@ package util
 
 import (
 	"os"
-	"fmt"
 	"encoding/json"
+	"log"
 )
 
-func ReadParseConfig(filename string) (ParseConfig) {
+const CONFIG_FILE_PATH = "com/megapapa/resources/parse_config.json"
+
+func ReadParseConfig() (ParseConfig) {
 	var config ParseConfig
-	configFile, err := os.Open(filename)
+	configFile, err := os.Open(CONFIG_FILE_PATH)
 	defer configFile.Close()
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 	}
 	jsonParser := json.NewDecoder(configFile)
 	jsonParser.Decode(&config)

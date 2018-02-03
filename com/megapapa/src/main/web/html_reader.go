@@ -7,7 +7,7 @@ import (
 
 const ERROR_GET_MSG = "Can't do GET request to current URL: "
 
-func GetHtml(url string) (string, error) {
+func GetHtmlSource(url string) (string, error) {
 	response, err := http.Get(url)
 	if err != nil {
 		return ERROR_GET_MSG + url, err;

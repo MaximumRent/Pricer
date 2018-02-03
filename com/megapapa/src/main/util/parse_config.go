@@ -1,29 +1,33 @@
 package util
 
 type ParseConfig struct {
-	startPages []string
+	Sites []SiteConfig `json:"sites"`
 	index int
 }
 
 const EMPTY_SITE_NAME = ""
 
-func (config *ParseConfig) GetStartPages() ([]string) {
-	return config.startPages
+func (config *ParseConfig) GetSitesConfigs() ([]SiteConfig) {
+	return config.Sites
 }
 
-func (config *ParseConfig) GetNextSite() (string) {
-	site := config.startPages[config.index]
+func (config *ParseConfig) GetNextSiteURL() (string) {
+	siteURL := config.Sites[config.index].SiteURL
 	config.index++
-	if (config.index > (len(config.startPages) - 1)) {
-		config.index = 0
+	if config.index > (len(config.Sites) - 1) {
+		config.RestartCounting()
 	}
-	return site
+	return siteURL
+}
+
+func (config *ParseConfig) RestartCounting() {
+	config.index = 0;
 }
 
 func (config *ParseConfig) GetSiteByName(name string) (string) {
-	for _, page := range config.startPages {
-		if (page == name) {
-			return page;
+	for _, site := range config.Sites {
+		if site.SiteURL == name {
+			return site.SiteURL;
 		}
 	}
 	return EMPTY_SITE_NAME
