@@ -4,10 +4,12 @@ import (
 	"os"
 	"encoding/json"
 	"log"
+	. "../entity"
 )
 
 const CONFIG_FILE_PATH = "com/megapapa/resources/parse_config.json"
 
+/* Simple json-config-reader */
 func ReadParseConfig() (ParseConfig) {
 	var config ParseConfig
 	configFile, err := os.Open(CONFIG_FILE_PATH)

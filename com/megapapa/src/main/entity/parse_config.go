@@ -1,5 +1,11 @@
-package util
+package entity
 
+import "log"
+
+/*
+	Configuration with parse rules for sites
+	index used for iterations
+*/
 type ParseConfig struct {
 	Sites []SiteConfig `json:"sites"`
 	index int
@@ -11,13 +17,16 @@ func (config *ParseConfig) GetSitesConfigs() ([]SiteConfig) {
 	return config.Sites
 }
 
-func (config *ParseConfig) GetNextSiteURL() (string) {
+func (config *ParseConfig) GetNextSiteURL() (string, bool) {
 	siteURL := config.Sites[config.index].SiteURL
+	var beRestarted = false
 	config.index++
+	log.Println()
 	if config.index > (len(config.Sites) - 1) {
 		config.RestartCounting()
+		beRestarted = true
 	}
-	return siteURL
+	return siteURL, beRestarted
 }
 
 func (config *ParseConfig) RestartCounting() {
