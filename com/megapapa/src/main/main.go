@@ -2,6 +2,7 @@ package main
 
 import (
 	. "./util"
+	. "./web"
 )
 
 func main() {
@@ -9,6 +10,8 @@ func main() {
 	var endFlag bool
 	var url string
 	for !endFlag {
+		url, endFlag = parseConfig.GetNextSiteURL()
+		ParseHtml(url, parseConfig.GetCurrentSiteConfiguration())
 		//url, endFlag = parseConfig.GetNextSiteURL()
 		/*html, err := web.GetHtmlSource(url)
 		if err != nil {

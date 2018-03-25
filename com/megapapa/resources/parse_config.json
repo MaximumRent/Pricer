@@ -3,12 +3,54 @@
         {
             "site_name": "kufar.by",
             "site_url" : "https://www.kufar.by/минск_город/Квартиры?cu=BYR&o=1",
-            "tags": []
+            "tags": [{
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }]
         },
         {
             "site_name": "domovita.by",
             "site_url": "https://domovita.by/minsk/flats/sale?page=1",
-            "tags":[]
+            "tags":[{
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }, {
+                "tag" : "a",
+                "class" : "list_ads__title"
+            }]
         }
     ]
 }

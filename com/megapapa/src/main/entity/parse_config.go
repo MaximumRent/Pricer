@@ -29,6 +29,10 @@ func (config *ParseConfig) GetNextSiteURL() (string, bool) {
 	return siteURL, beRestarted
 }
 
+func (config *ParseConfig) GetCurrentSiteConfiguration() (SiteConfig) {
+	return config.Sites[config.index]
+}
+
 func (config *ParseConfig) RestartCounting() {
 	config.index = 0;
 }
