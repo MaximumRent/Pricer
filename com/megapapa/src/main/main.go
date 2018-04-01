@@ -8,10 +8,9 @@ import (
 func main() {
 	parseConfig := ReadParseConfig()
 	var endFlag bool
-	var url string
 	for !endFlag {
-		url, endFlag = parseConfig.GetNextSiteURL()
-		ParseHtml(url, parseConfig.GetCurrentSiteConfiguration())
+		_, endFlag = parseConfig.GetNextSiteURL()
+		StartParsing(parseConfig.GetCurrentSiteConfiguration())
 		//url, endFlag = parseConfig.GetNextSiteURL()
 		/*html, err := web.GetHtmlSource(url)
 		if err != nil {

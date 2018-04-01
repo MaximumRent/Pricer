@@ -1,7 +1,5 @@
 package entity
 
-import "log"
-
 /*
 	Configuration with parse rules for sites
 	index used for iterations
@@ -21,7 +19,6 @@ func (config *ParseConfig) GetNextSiteURL() (string, bool) {
 	siteURL := config.Sites[config.index].SiteURL
 	var beRestarted = false
 	config.index++
-	log.Println()
 	if config.index > (len(config.Sites) - 1) {
 		config.RestartCounting()
 		beRestarted = true

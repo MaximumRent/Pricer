@@ -2,55 +2,74 @@
     "sites": [
         {
             "site_name": "kufar.by",
-            "site_url" : "https://www.kufar.by/минск_город/Квартиры?cu=BYR&o=1",
-            "tags": [{
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }]
+            "site_url" : "https://www.kufar.by/минск_город/Квартиры?cu=BYR&o=%s",
+            "page_to_parsing" : 1,
+            "tags": {
+                "href_tag" : {
+                    "tag" : "a",
+                    "class" : "list_ads__title",
+                    "repeatable" : false
+                },
+                "price_tag" : {
+                    "tag" : "b",
+                    "class" : "adview_content__native_price",
+                    "repeatable" : false
+                },
+                "street_tag" : {
+                    "tag" : "span",
+                    "class" : "adview_spec__info",
+                    "repeatable" : true
+                },
+                "total_space_tag" : {
+                    "tag" : "span",
+                    "class" : "adview_spec__info",
+                    "repeatable" : true
+                },
+                "living_space_tag" : {
+                    "tag" : "span",
+                    "class" : "adview_spec__info",
+                    "repeatable" : true
+                },
+                "rooms_count_tag" : {
+                    "tag" : "span",
+                    "class" : "adview_spec__info",
+                    "repeatable" : true
+                },
+                "floor_tag" : {
+                    "tag" : "span",
+                    "class" : "adview_spec__info",
+                    "repeatable" : true
+                }
+            }
         },
         {
             "site_name": "domovita.by",
             "site_url": "https://domovita.by/minsk/flats/sale?page=1",
-            "tags":[{
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }, {
-                "tag" : "a",
-                "class" : "list_ads__title"
-            }]
+            "page_to_parsing" : 80,
+            "tags": {
+                "href_tag" : {
+                    "tag" : "a",
+                    "class" : "list_ads__title"
+                },
+                "price_tag" : {
+
+                },
+                "street_tag" : {
+
+                },
+                "total_space_tag" : {
+
+                },
+                "living_space_tag" : {
+
+                },
+                "rooms_count_tag" : {
+
+                },
+                "floor_tag" : {
+
+                }
+            }
         }
     ]
 }
