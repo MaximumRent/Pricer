@@ -2,7 +2,7 @@
     "sites": [
         {
             "site_name": "kufar.by",
-            "site_url" : "https://www.kufar.by/минск_город/Квартиры?cu=BYR&o=%s",
+            "site_url" : "https://www.kufar.by/минск_город/Квартиры?cu=BYR&o=%v",
             "page_to_parsing" : 1,
             "tags": {
                 "href_tag" : {
@@ -45,7 +45,7 @@
         {
             "site_name": "domovita.by",
             "site_url": "https://domovita.by/minsk/flats/sale?page=1",
-            "page_to_parsing" : 80,
+            "page_to_parsing" : 0,
             "tags": {
                 "href_tag" : {
                     "tag" : "a",

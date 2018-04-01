@@ -7,12 +7,12 @@ import (
 	. "../entity"
 )
 
-const CONFIG_FILE_PATH = "com/megapapa/resources/parse_config.json"
+const _CONFIG_FILE_PATH = "com/megapapa/resources/parse_config.json"
 
 /* Simple json-config-reader */
 func ReadParseConfig() (ParseConfig) {
 	var config ParseConfig
-	configFile, err := os.Open(CONFIG_FILE_PATH)
+	configFile, err := os.Open(_CONFIG_FILE_PATH)
 	defer configFile.Close()
 	if err != nil {
 		log.Println(err.Error())
