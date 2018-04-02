@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"bytes"
 	"log"
+	"../util"
 )
 
 const _HTML_ELEMENT_CONCATENATOR = "."
@@ -34,7 +35,6 @@ func StartParsing(config SiteConfig) (error) {
 			if exists {
 				parseApartmentPage(href, config)
 			}
-			fmt.Println()
 		})
 	}
 	// Make normal return
@@ -51,14 +51,17 @@ func parseApartmentPage(url string, config SiteConfig) (error) {
 	}
 	document, err := goquery.NewDocumentFromReader(htmlBody)
 	for _, tag := range config.Tags {
-		document.Find(getSelector(tag)).Each(func(i int, selection *goquery.Selection) {
-			fmt.Println(selection.Text())
-		})
+		if !tag.Repeatable {
+			document.Find(getSelector(tag)).Each(func(i int, selection *goquery.Selection) {
+				if util.IsNonTrashString(selection.Text()) {
+					fmt.Println(util.PickoutLettersFromString(selection.Text()))
+				}
+			})
+		}
 	}
 	// Make normal return
 	return nil
 }
-
 
 func getSelector(tag ParseableTag) (string) {
 	var buffer bytes.Buffer

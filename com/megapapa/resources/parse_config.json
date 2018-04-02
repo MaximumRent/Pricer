@@ -44,7 +44,7 @@
         },
         {
             "site_name": "domovita.by",
-            "site_url": "https://domovita.by/minsk/flats/sale?page=1",
+            "site_url": "https://domovita.by/minsk/flats/sale?page=%v",
             "page_to_parsing" : 0,
             "tags": {
                 "href_tag" : {
