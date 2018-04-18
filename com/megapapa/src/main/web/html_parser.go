@@ -9,6 +9,7 @@ import (
 	"bytes"
 	"log"
 	"../util"
+	"../unique_parsers"
 )
 
 const _HTML_ELEMENT_CONCATENATOR = "."
@@ -51,16 +52,34 @@ func parseApartmentPage(url string, config SiteConfig) (error) {
 	}
 	document, err := goquery.NewDocumentFromReader(htmlBody)
 	for _, tag := range config.Tags {
+		// Now, non-repeatable tag is price_tag
 		if !tag.Repeatable {
 			document.Find(getSelector(tag)).Each(func(i int, selection *goquery.Selection) {
 				if util.IsNonTrashString(selection.Text()) {
-					fmt.Println(util.PickoutLettersFromString(selection.Text()))
+					// Add price extractor
+					//fmt.Println(util.PickoutLettersFromString(selection.Text()))
+				}
+			})
+		} else {
+			document.Find(getSelector(tag)).Each(func(i int, selection *goquery.Selection) {
+				if util.IsNonTrashString(selection.Text()) {
+					value := util.PickoutLettersFromString(selection.Text())
+					callSiteParser(config.SiteName, tag, value)
+					//fmt.Println(util.PickoutLettersFromString(selection.Text()))
 				}
 			})
 		}
 	}
 	// Make normal return
 	return nil
+}
+
+// For each site need to create unique parser for non-repeatable tags
+func callSiteParser(siteName string, tag ParseableTag, value string) {
+	switch siteName {
+		case "kufar.by":
+			unique_parsers.ParseKufar(tag, value)
+	}
 }
 
 func getSelector(tag ParseableTag) (string) {
