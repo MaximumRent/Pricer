@@ -10,6 +10,7 @@ import (
 	"log"
 	"../util"
 	"../unique_parsers"
+	"../db"
 )
 
 const _HTML_ELEMENT_CONCATENATOR = "."
@@ -34,7 +35,10 @@ func StartParsing(config SiteConfig) (error) {
 		document.Find(getSelector(config.Tags[_HREF_TAG])).Each(func(i int, selection *goquery.Selection) {
 			href, exists := selection.Attr("href")
 			if exists {
-				parseApartmentPage(href, config)
+				parseResult, err := parseApartmentPage(href, config)
+				if err == nil {
+					db.WriteParseResultToDb(parseResult)
+				}
 			}
 		})
 	}
@@ -43,42 +47,50 @@ func StartParsing(config SiteConfig) (error) {
 }
 
 /* Called for each apartment page */
-func parseApartmentPage(url string, config SiteConfig) (error) {
+func parseApartmentPage(url string, config SiteConfig) (*ParseResult, error) {
 	log.Printf("Start parsing apartment... - %s", url)
 	htmlBody, err := getHtml(url)
 	defer htmlBody.Close()
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	document, err := goquery.NewDocumentFromReader(htmlBody)
+	result := new(ParseResult)
 	for _, tag := range config.Tags {
 		// Now, non-repeatable tag is price_tag
 		if !tag.Repeatable {
 			document.Find(getSelector(tag)).Each(func(i int, selection *goquery.Selection) {
 				if util.IsNonTrashString(selection.Text()) {
 					// Add price extractor
-					//fmt.Println(util.PickoutLettersFromString(selection.Text()))
+					value := util.PickoutLettersFromString(selection.Text())
+					callPriceExtractor(config.SiteName, value, result)
 				}
 			})
 		} else {
 			document.Find(getSelector(tag)).Each(func(i int, selection *goquery.Selection) {
 				if util.IsNonTrashString(selection.Text()) {
 					value := util.PickoutLettersFromString(selection.Text())
-					callSiteParser(config.SiteName, tag, value)
+					callSiteParser(config.SiteName, tag, value, result)
 					//fmt.Println(util.PickoutLettersFromString(selection.Text()))
 				}
 			})
 		}
 	}
-	// Make normal return
-	return nil
+	return result, nil
+}
+
+func callPriceExtractor(siteName string, value string, result *ParseResult) {
+	switch siteName {
+	case "kufar.by":
+		unique_parsers.ExtractKufarPrice(value, result)
+	}
 }
 
 // For each site need to create unique parser for non-repeatable tags
-func callSiteParser(siteName string, tag ParseableTag, value string) {
+func callSiteParser(siteName string, tag ParseableTag, value string, result *ParseResult) {
 	switch siteName {
 		case "kufar.by":
-			unique_parsers.ParseKufar(tag, value)
+			unique_parsers.ParseKufar(tag, value, result)
 	}
 }
 
